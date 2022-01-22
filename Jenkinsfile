@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('prep') {
             steps {
-             git url: ''
+             git url: 'https://github.com/Cypher6600/weekly-team-report-html.git'
                 //
             }
         }
