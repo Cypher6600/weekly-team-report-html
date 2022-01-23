@@ -7,15 +7,7 @@ pipeline {
                 //
             }
         }
-              
-      stage('deploy to S3'){
-          steps{
-              sh 'aws s3 cp index.html s3://bill-bucket-66'
-              sh 'aws s3api put-object-acl --bucket bill-bucket-66 --key index.html --acl public-read'
-              sh 'aws s3 cp error.html s3://bill-bucket-66'
-              sh 'aws s3api put-object-acl --bucket bill-bucket-66 --key error.html --acl public-read'
-          }
-      }
+    
                   stage('terraform install and build') {
             steps {
               sh "wget -O terraform_1.0.0_linux_amd64.zip https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip"
@@ -26,5 +18,16 @@ pipeline {
                 //
             }
         }
+        
+                  
+               stage('deploy to S3'){
+          steps{
+              sh 'aws s3 cp index.html s3://bill-bucket-66'
+              sh 'aws s3api put-object-acl --bucket bill-bucket-66 --key index.html --acl public-read'
+              sh 'aws s3 cp error.html s3://bill-bucket-66'
+              sh 'aws s3api put-object-acl --bucket bill-bucket-66 --key error.html --acl public-read'
+              //
+          }
+      }
     }
 }
