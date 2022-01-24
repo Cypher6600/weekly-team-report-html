@@ -36,6 +36,7 @@ pipeline {
                stage('deploy to S3'){
           steps{
               sh 'aws s3 cp --profile bill6600 . s3://bill-bucket-77 --recursive --acl public-read'
+              sh 'aws s3 ls --profile bill6600'
               //
           }
       }
