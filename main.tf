@@ -11,8 +11,8 @@ provider "aws" {
   region = "us-west-2"
 }
 
-resource "aws_s3_bucket" "bill-bucket-66" {
-  bucket = "bill-bucket-66"
+resource "aws_s3_bucket" "bill-bucket-77" {
+  bucket = "bill-bucket-77"
   acl    = "public-read-write"
 
 
@@ -38,7 +38,7 @@ locals {
 
 resource "aws_cloudfront_distribution" "bill_cdn" {
   origin {
-    domain_name = aws_s3_bucket.bill-bucket-66.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.bill-bucket-77.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
 
     s3_origin_config {
