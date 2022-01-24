@@ -1,5 +1,5 @@
 provider "aws" {
-  profile = "PowerUserAccess-529396670287"
+  profile = "bill6600"
   region = "us-west-2"
 }
 
