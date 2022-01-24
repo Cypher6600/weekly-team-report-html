@@ -12,9 +12,9 @@ pipeline {
             steps {
               //sh "wget -O terraform_1.0.0_linux_amd64.zip https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip"
               //sh "unzip terraform_*_linux_amd64.zip -d /usr/local/bin"
-              sh "terraform init -upgrade"
-              sh "terraform plan"
-              sh "terraform apply --auto-approve"
+             // sh "terraform init -upgrade"
+             // sh "terraform plan"
+            //  sh "terraform apply --auto-approve"
               //
             }
         }
@@ -22,7 +22,7 @@ pipeline {
                   
                stage('deploy to S3'){
           steps{
-              sh 'aws s3 cp --profile bill6600 index.html s3://bill-bucket-77 --recursive --acl public-read'
+              sh 'aws s3 cp --profile bill6600 . s3://bill-bucket-77 --recursive --acl public-read'
               //
           }
       }
