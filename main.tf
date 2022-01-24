@@ -1,7 +1,20 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "3.48.0"
+    }
+  }
+}
+provider "aws" {
+  profile = "PowerUserAccess-529396670287"
+  region = "us-west-2"
+}
+
 resource "aws_s3_bucket" "bill-bucket-66" {
   bucket = "bill-bucket-66"
-  acl    = "public"
-}
+  acl    = "public-read-write"
+
 
  website {
     index_document = "index.html"
@@ -18,7 +31,7 @@ resource "aws_s3_bucket" "bill-bucket-66" {
 }]
 EOF
   }
-
+}
 locals {
   s3_origin_id = "bill_origin"
 }
@@ -29,7 +42,7 @@ resource "aws_cloudfront_distribution" "bill_cdn" {
     origin_id   = local.s3_origin_id
 
     s3_origin_config {
-      origin_access_identity = "origin-access-identity/cloudfront/ABCDEFG1234567"
+      origin_access_identity = ""
     }
   }
 
@@ -37,13 +50,6 @@ resource "aws_cloudfront_distribution" "bill_cdn" {
   is_ipv6_enabled     = true
   comment             = "Some comment"
   default_root_object = "index.html"
-
-  logging_config {
-    include_cookies = false
-    bucket          = "mylogs.s3.amazonaws.com"
-    prefix          = "myprefix"
-  }
-
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -64,9 +70,15 @@ resource "aws_cloudfront_distribution" "bill_cdn" {
     max_ttl                = 86400
   }
 
- 
+
   price_class = "PriceClass_200"
 
+restrictions {
+    geo_restriction {
+      restriction_type = "whitelist"
+      locations        = ["US", "CA", "GB", "DE"]
+    }
+  }
 
   viewer_certificate {
     cloudfront_default_certificate = true
