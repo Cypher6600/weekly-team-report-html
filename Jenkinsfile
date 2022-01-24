@@ -7,13 +7,13 @@ pipeline {
                 //
             }
         }
-       stage('nmp-build') {
-           steps {
-       sh 'npm install'
-       sh 'npm run build'
+      // stage('nmp-build') {
+        //   steps {
+       //sh 'npm install'
+       //sh 'npm run build'
             //
-         }
-       }
+         //}
+   //    }
     
           stage('terraform install and build') {
                steps {
