@@ -22,10 +22,7 @@ pipeline {
                   
                stage('deploy to S3'){
           steps{
-              sh 'aws s3 cp index.html s3://bill-bucket-66'
-              sh 'aws s3api put-object-acl --bucket bill-bucket-66 --key index.html --acl public-read'
-              sh 'aws s3 cp error.html s3://bill-bucket-66'
-              sh 'aws s3api put-object-acl --bucket bill-bucket-66 --key error.html --acl public-read'
+              sh 'aws s3 cp --profile bill6600 index.html s3://bill-bucket-77 --recursive --acl public-read'
               //
           }
       }
