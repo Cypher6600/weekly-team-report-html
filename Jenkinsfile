@@ -15,6 +15,7 @@ pipeline {
               sh "terraform init -upgrade"
               sh "terraform plan"
               sh "terraform apply"
+              sh "yes"
                 //
             }
         }
