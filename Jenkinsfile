@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-          image 'node:10.11.0-alpine'
-            args '-p 3000:3000'
-        }
+    agent any {
     }
     stages {
         stage('prep') {
@@ -12,13 +8,13 @@ pipeline {
                 //
             }
         }
-        stage('nmp-build') {
-             steps {
-        sh 'npm install'
-        sh 'npm run build'
+       // stage('nmp-build') {
+         //    steps {
+        //sh 'npm install'
+        //sh 'npm run build'
             //
-            }
-        }
+          //  }
+        //}
     
           stage('terraform install and build') {
                steps {
