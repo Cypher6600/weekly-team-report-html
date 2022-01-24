@@ -14,7 +14,7 @@ pipeline {
               //sh "unzip terraform_*_linux_amd64.zip -d /usr/local/bin"
               sh "terraform init -upgrade"
               sh "terraform plan"
-              sh "terraform apply --auto-aprove"
+              sh "terraform apply --auto-approve"
               //
             }
         }
