@@ -15,18 +15,21 @@ pipeline {
         sh 'npm run build'
        }
     }
-           stage('Sonarqube') {
-      agent {
+      
+   stage('sonar-scanner') {
+        agent {
           docker { image 'openjdk:11' }
-       }
-      steps {
-        script {
-            def sonarqubeScannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-            withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin'){
-                sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://${SONARQUBE_HOST}:9000 -Dsonar.login=${sonarLogin} -Dsonar.password=${sonarLogin} -Dsonar.projectName=WebApp -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources=src/ -Dsonar.language=js"
         }
-      }
-    }
+             steps {
+                 script {
+                     def SONARQUBE_HOSTNAME = 'sonar'
+        def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://${SONARQUBE_HOSTNAME}:9000 -Dsonar.login='admin' -Dsonar.password='Admin@123' -Dsonar.projectName=WebApp -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources=src/ -Dsonar.java.binaries=build/**/*"
+                        }
+                 }    
+         }
+  }
            }
             stage('Terraform - Init S3') {
 
