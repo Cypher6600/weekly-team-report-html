@@ -22,13 +22,12 @@ pipeline {
       steps {
         script {
             def sonarqubeScannerHome = tool name: 'SonarQubeScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-            withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin') {
+            withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin') 
                 sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://${SONARQUBE_HOST}:9000 -Dsonar.login=${sonarLogin} -Dsonar.password=${sonarLogin} -Dsonar.projectName=WebApp -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources=src/ -Dsonar.language=js"
-            }
         }
       }
     }
-        stage('Terraform - Init S3') {
+            stage('Terraform - Init S3') {
 
 		agent {
             docker {
