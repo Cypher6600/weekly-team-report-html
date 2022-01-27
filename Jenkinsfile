@@ -53,7 +53,7 @@ pipeline {
             }
         }
         steps {
-           sh 'aws s3 cp --profile bill66 . s3://bill-bucket-77 --recursive --acl public-read'
+           sh 'aws s3 cp . s3://bill-bucket-77 --recursive --acl public-read'
         }
 }
 }
