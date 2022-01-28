@@ -6,7 +6,7 @@ pipeline {
              git url: 'https://github.com/Cypher6600/weekly-team-report-html.git', branch: 'develop-team-1'
                   }
         }
-        stage('Build') {
+        stage('build html') {
       agent {
           docker { image 'node:16.13.1-alpine' }
        }
@@ -31,7 +31,7 @@ pipeline {
     
          
              
-            stage('Terraform - Init S3') {
+            stage('TF Create S3 and CDN') {
 
 		agent {
             docker {
@@ -42,6 +42,10 @@ pipeline {
         steps {
                 sh 'terraform init'
                 sh 'terraform apply --auto-approve'
+		dir("./remote-state") {
+		sh 'terraform init'
+                sh 'terraform apply --auto-approve'
+		}
         }
     }
 
