@@ -3,30 +3,30 @@ provider "aws" {
   region = "us-west-2"
 }
 
-resource "aws_s3_bucket" "bill-bucket-77" {
-  bucket = "bill-bucket-77"
-  acl    = "public-read-write"
+# resource "aws_s3_bucket" "bill-bucket-77" {
+#   bucket = "bill-bucket-77"
+#   acl    = "public-read-write"
 
 
- website {
-    index_document = "index.html"
-    error_document = "error.html"
+#  website {
+#     index_document = "index.html"
+#     error_document = "error.html"
 
-    routing_rules = <<EOF
-[{
-    "Condition": {
-        "KeyPrefixEquals": "docs/"
-    },
-    "Redirect": {
-        "ReplaceKeyPrefixWith": "documents/"
-    }
-}]
-EOF
-  }
-}
-locals {
-  s3_origin_id = "bill_origin"
-}
+#     routing_rules = <<EOF
+# [{
+#     "Condition": {
+#         "KeyPrefixEquals": "docs/"
+#     },
+#     "Redirect": {
+#         "ReplaceKeyPrefixWith": "documents/"
+#     }
+# }]
+# EOF
+#   }
+# }
+# locals {
+#   s3_origin_id = "bill_origin"
+# }
 
 resource "aws_cloudfront_distribution" "bill_cdn" {
   origin {
