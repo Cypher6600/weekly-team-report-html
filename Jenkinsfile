@@ -22,9 +22,10 @@ pipeline {
         }
              steps {
                 script {
+	def SONARQUBE_HOSTNAME = 'sonarqube'
         def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
         withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
-        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://34.219.13.237:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=WebApp -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources=src/ -Dsonar.language=js" }
+        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://${SONARQUBE_HOSTNAME}:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=WebApp -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=GS -Dsonar.sources=src/ -Dsonar.language=js" }
 	             	}
             }  
          }
@@ -53,7 +54,7 @@ pipeline {
             }
         }
         steps {
-           sh 'aws s3 cp . s3://bill-bucket-77 --recursive --acl public-read'
+           sh 'aws s3 cp dist s3://bill-bucket-77 --recursive --acl public-read'
         }
 }
 }
