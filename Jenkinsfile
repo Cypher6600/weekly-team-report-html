@@ -36,8 +36,7 @@ pipeline {
 		agent {
             docker {
                 image 'hashicorp/terraform:latest'
-                args  '--entrypoint="" -u root -v /home/ec2-user/.aws:/root/.aws'
-            }
+                   }
         }
         steps {
             dir("./terraform") {
@@ -51,12 +50,11 @@ pipeline {
         }
     }
 
-    stage('AWS - Upload to S3'){
+    stage('Upload data to S3'){
         agent {
             docker {
                 image 'amazon/aws-cli'
-                args '--entrypoint="" -v /home/ec2-user/.aws:/root/.aws'
-            }
+                }
         }
         steps {
            sh 'aws s3 cp dist s3://bill-bucket-77 --recursive --acl public-read'
