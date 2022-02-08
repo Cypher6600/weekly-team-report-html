@@ -43,10 +43,6 @@ pipeline {
                 sh 'terraform init'
                 sh 'terraform apply --auto-approve'
             }
-		    dir("./remote-state") {
-		        sh 'terraform init'
-                sh 'terraform apply -lock=false --auto-approve'
-		    }
         }
     }
 
