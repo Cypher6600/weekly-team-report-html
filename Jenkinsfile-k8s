@@ -61,7 +61,7 @@ pipeline {
             stage('cli') {
                 steps {
                     container('cli') {
-                    sh 'aws s3 cp dist s3://trogaev-bucket-lab/ --recursive'
+                    sh 'aws s3 cp dist s3://bill77-bucket/ --recursive'
                     }
                 }
             }
