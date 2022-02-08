@@ -21,7 +21,7 @@ pipeline {
             command:
             - cat
             tty: true
-            - name: jdk
+          - name: jdk
             image: openjdk:11
             command:
             - cat
@@ -77,3 +77,4 @@ pipeline {
             }
     }
 }
+
