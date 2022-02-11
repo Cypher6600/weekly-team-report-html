@@ -16,7 +16,7 @@ pipeline {
             command:
             - cat
             tty: true
-           - name: docker
+          - name: docker
             image: docker:19.03
             imagePullPolicy: Always
             command:
