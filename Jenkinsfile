@@ -50,8 +50,8 @@ pipeline {
             stage('cli login') {
                 steps {
                     container('cli') {
-                    // sh 'aws ecr get-login-password --region us-west-2 > ./password.txt'
-                    sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 529396670287.dkr.ecr.us-west-2.amazonaws.com'
+                    sh 'aws ecr get-login-password --region us-west-2 > ./dockerfile/password.txt'
+                    //sh 'aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 529396670287.dkr.ecr.us-west-2.amazonaws.com'
                     }
                 }
             }
@@ -60,6 +60,7 @@ pipeline {
                     container('docker') {
                         dir("./dockerfile") {
                         sh 'docker build . -t front-end:0.0.1'
+                        sh 'docker login --username AWS --password password.txt 529396670287.dkr.ecr.us-west-2.amazonaws.com'
                         sh 'docker tag front-end:0.0.1 529396670287.dkr.ecr.us-west-2.amazonaws.com/front-end:0.0.1'
                         sh 'docker push 529396670287.dkr.ecr.us-west-2.amazonaws.com/front-end:0.0.1'
                         }
