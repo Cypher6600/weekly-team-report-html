@@ -17,19 +17,9 @@ pipeline {
             - cat
             tty: true
           - name: docker
-            image: docker:19.03
-            imagePullPolicy: Always
-            command:
-            - cat
-            tty: true
-            volumeMounts:
-              - name: dockersock
-                mountPath: /var/run/docker.sock
-
-          volumes:
-          - name: dockersock
-            hostPath:
-              path: /var/run/docker.sock
+            image: docker:19.03.1-dind
+            securityContext:
+                privileged: true     
          '''
         }
     }
@@ -59,9 +49,9 @@ pipeline {
                 steps{
                     container('docker') {
                         dir("./dockerfile") {
-                        sh 'docker build . -t front-end:0.0.1'
                         sh 'docker login --username AWS --password < password.txt 529396670287.dkr.ecr.us-west-2.amazonaws.com'
-                        sh 'docker tag front-end:0.0.1 529396670287.dkr.ecr.us-west-2.amazonaws.com/front-end:0.0.1'
+                        sh 'docker build . -t 529396670287.dkr.ecr.us-west-2.amazonaws.com/front-end:0.0.1'
+                        //sh 'docker tag front-end:0.0.1 529396670287.dkr.ecr.us-west-2.amazonaws.com/front-end:0.0.1'
                         sh 'docker push 529396670287.dkr.ecr.us-west-2.amazonaws.com/front-end:0.0.1'
                         }
                     }
