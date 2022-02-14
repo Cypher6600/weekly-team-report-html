@@ -52,9 +52,7 @@ pipeline {
                         sh 'docker build -t front_end .'
                         sh 'docker tag front_end:latest 529396670287.dkr.ecr.us-west-2.amazonaws.com/front_end:latest'
                         sh 'docker push 529396670287.dkr.ecr.us-west-2.amazonaws.com/front_end:latest'
-                        //sh 'docker tag front-end:0.0.1 529396670287.dkr.ecr.us-west-2.amazonaws.com/front-end:0.0.1'
-                        //sh 'docker push 529396670287.dkr.ecr.us-west-2.amazonaws.com/front-end:v1'
-                        }
+                       }
                     }
                 }
             
